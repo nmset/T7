@@ -10,7 +10,7 @@
 #ifndef XT7MAIN_H
 #define	XT7MAIN_H
 
-#include "UI/t7main.h"
+#include "Resources/UI/t7main.h"
 #include "PedalManager.h"
 #include "KeyboardSimulation.h"
 #include <wx/config.h>

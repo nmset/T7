@@ -15,8 +15,8 @@ add_executable(T7
             PedalManager.h          PedalManager.cpp
             KeyboardSimulation.h    KeyboardSimulation.cpp
             XT7Main.h               XT7Main.cpp
-            UI/t7app.h    UI/t7app.cpp
-            UI/t7main.h   UI/t7main.cpp
+            Resources/UI/t7app.h    Resources/UI/t7app.cpp
+            Resources/UI/t7main.h   Resources/UI/t7main.cpp
             )
 
 install(TARGETS T7 RUNTIME DESTINATION bin) 

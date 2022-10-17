@@ -24,7 +24,7 @@
 ////@end includes
 
 #include "t7app.h"
-#include "../XT7Main.h"
+#include "../../XT7Main.h"
 
 ////@begin XPM images
 ////@end XPM images
