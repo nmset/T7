@@ -6,21 +6,24 @@ HID foot pedal controlled transcription application.
 
 $ cd T7
 
+$ mkdir build ; cd $_
+
 $ cmake -DCMAKE_BUILD_TYPE:STRING=Release ../
 
 $ make -j4
 
-## Usage
+#### Device access setup
 
 Udev's facilities are used here. A group with read/write access to the 
 device must be created, with users added to that group.
 
 $ groupadd transcript
+
 $ usermod -a -G transcript user
 
-Create /etc/udev/rules.d/99-mypedal.rules with (one single line) :
-KERNEL=="hidraw[0-9]*", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="efgh",  
-MODE="0660", GROUP="transcript"
+Create /etc/udev/rules.d/99-mypedal.rules with :
+
+> *KERNEL=="hidraw[0-9]*", ATTRS{idVendor}=="abcd", ATTRS{idProduct}=="efgh", MODE="0660", GROUP="transcript"*
 
 Get 'abcd' and 'efgh' with 'lsusb' command or 'dmesg |tail' commands 
 after plugging the foot pedal.
@@ -28,7 +31,7 @@ after plugging the foot pedal.
 Remove the pedal device and plug it again. On next login, users in group 
 'transcript' should have read access to the device.
 
-##### T7 configuration:
+#### T7 configuration:
 
 Open the two nested collapsible panes at the bottom of the main window.
 
@@ -52,9 +55,7 @@ Use the pedals.
 
 ## Disclaimer
 
-Programming is just my hobby, use at your own risks.
-
-T7 does not claim to be fit for any purpose.
+T7 does not claim to be fit for any purpose. Use at your own risks.
 
 ## Limitations
 
