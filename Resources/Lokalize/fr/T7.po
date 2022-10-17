@@ -1,0 +1,183 @@
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+#
+# Saleem EDAH-TALLY <set@nmset.info>, 2022.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-10-17 16:03+0200\n"
+"PO-Revision-Date: 2022-10-17 18:29+0200\n"
+"Last-Translator: Saleem EDAH-TALLY <set@nmset.info>\n"
+"Language-Team: French <>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 22.08.2\n"
+
+#: ../../XT7Main.cpp:47
+msgid "Incomplete device configuration."
+msgstr "Configuration du périphérique incomplète."
+
+#: ../../XT7Main.cpp:110
+msgid "Left"
+msgstr "Gauche"
+
+#: ../../XT7Main.cpp:111
+msgid "Middle"
+msgstr "Milieu"
+
+#: ../../XT7Main.cpp:112
+msgid "Right"
+msgstr "Droit"
+
+#: ../../XT7Main.cpp:113 ../../XT7Main.cpp:116 ../../XT7Main.cpp:119
+msgid "Rewind"
+msgstr "Retour arrière"
+
+#: ../../XT7Main.cpp:114 ../../XT7Main.cpp:117 ../../XT7Main.cpp:120
+msgid "Fast forward"
+msgstr "Avance rapide"
+
+#: ../../XT7Main.cpp:115 ../../XT7Main.cpp:118 ../../XT7Main.cpp:121
+msgid "Play"
+msgstr "Lecture"
+
+#: ../../XT7Main.cpp:206
+msgid "Device saved. Proceed to pedal identification."
+msgstr "Périphérique enregistré. Procédez à l'identification des pédales."
+
+#: ../../XT7Main.cpp:211
+msgid "Can't save selected device in configuration."
+msgstr "Échec de sauvegarde du périphérique sélectionné."
+
+#: ../../XT7Main.cpp:229
+msgid "Choices are not consistent."
+msgstr "Choix inconsistants."
+
+#: ../../XT7Main.cpp:301
+msgid "Saved. You may identify another pedal."
+msgstr "Enregistré. Vous pouvez identifier une autre pédale."
+
+#: ../../XT7Main.cpp:304
+msgid "This window will close. Please start again."
+msgstr "Cette fenêtre va être fermée. Veuillez recommencer."
+
+#: ../../XT7Main.cpp:443
+msgid "Date"
+msgstr "Date"
+
+#: ../../XT7Main.cpp:444
+msgid "Length"
+msgstr "Durée"
+
+#: ../../XT7Main.cpp:445
+msgid "File"
+msgstr "Fichier"
+
+#: ../../XT7Main.cpp:471
+msgid ""
+"Can't communicate with the pedal device. After resolving the problem, "
+"please restart the application.\n"
+"\n"
+" Keyboard control : F5, F6, F7, ESC."
+msgstr ""
+"Ne peut communiquer avec le pédalier. Après avoir résolu le problème, "
+"veuillez redémarrer l'application.\n"
+"\n"
+"Au clavier : F5, F6, F7, ESC."
+
+#: ../../XT7Main.cpp:481
+msgid "Author and copyright :"
+msgstr "Auteur et copyright :"
+
+#: ../../XT7Main.cpp:484
+msgid "LGPL license"
+msgstr "Sous licence LGPL"
+
+#: ../../XT7Main.cpp:541 ../../XT7Main.cpp:558 ../../XT7Main.cpp:574
+msgid "Action is not rightly declared."
+msgstr "Action mal déclarée."
+
+#: ../..//Resources/UI/t7main.cpp:158
+msgid "Position"
+msgstr "Position"
+
+#: ../..//Resources/UI/t7main.cpp:161
+msgid "Total"
+msgstr "Total"
+
+#: ../..//Resources/UI/t7main.cpp:168
+msgid "Refresh"
+msgstr "Rafraîchir"
+
+#: ../..//Resources/UI/t7main.cpp:170
+msgid "Update file list."
+msgstr "Mettre à jour la liste de fichiers."
+
+#: ../..//Resources/UI/t7main.cpp:175
+msgid "Media source directory."
+msgstr "Dossier source des médias."
+
+#: ../..//Resources/UI/t7main.cpp:178
+msgid "Device configuration"
+msgstr "Configuration du périphérique"
+
+#: ../..//Resources/UI/t7main.cpp:183
+msgid "Device"
+msgstr "Périphérique"
+
+#: ../..//Resources/UI/t7main.cpp:185
+msgid "You should not play with these parameters once rightly set."
+msgstr ""
+"Vous ne devriez pas jouer avec ces paramètres une fois correctement définis."
+
+#: ../..//Resources/UI/t7main.cpp:192
+msgid "1. Select a device"
+msgstr "1. Sélection du périphérique"
+
+#: ../..//Resources/UI/t7main.cpp:201
+msgid "2. Press pedal"
+msgstr "2. Appuyez sur une pédale"
+
+#: ../..//Resources/UI/t7main.cpp:207
+msgid "You should not play with this once rightly configured."
+msgstr "Vous ne devriez pas jouer avec ceci une fois correctement établi."
+
+#: ../..//Resources/UI/t7main.cpp:213
+msgid "About"
+msgstr "A propos"
+
+#: ../..//Resources/UI/t7main.cpp:218
+msgid "Actions"
+msgstr "Actions"
+
+#: ../..//Resources/UI/t7main.cpp:224
+msgid "Left pedal"
+msgstr "Pédale de gauche"
+
+#: ../..//Resources/UI/t7main.cpp:230
+msgid "Middle pedal"
+msgstr "Pédale du milieu"
+
+#: ../..//Resources/UI/t7main.cpp:236
+msgid "Right pedal"
+msgstr "Pédale de droite"
+
+#: ../..//Resources/UI/t7main.cpp:241
+msgid "Auto-rewind on playback suspend"
+msgstr "Retour arrière à l'arrêt de le lecture"
+
+#: ../..//Resources/UI/t7main.cpp:244
+msgid "1000"
+msgstr ""
+
+#: ../..//Resources/UI/t7main.cpp:247
+msgid "Milliseconds; press Enter to save."
+msgstr "Millisecondes; appuyez sur ENTRÉE pour sauvegarder."
+
+#: ../..//Resources/UI/t7main.h:65
+msgid "T7"
+msgstr ""

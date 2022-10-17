@@ -67,6 +67,8 @@ public:
 
 ////@begin T7App member variables
 ////@end T7App member variables
+private:
+    wxLocale m_locale;
 };
 
 /*!

@@ -468,7 +468,7 @@ void XT7Main::SetStreamError() {
     streamError = true;
     // We request application restart when stream is established again.
     // We don't try to detect if the problem is resolved. Restart is cheap.
-    MessageBox(_("Can't communication with the pedal device. After resolving the problem,"
+    MessageBox(_("Can't communicate with the pedal device. After resolving the problem,"
             " please restart the application."
             "\n\n Keyboard control : F5, F6, F7, ESC."), true);
     medMain->Stop();

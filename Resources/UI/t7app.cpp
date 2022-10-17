@@ -102,8 +102,11 @@ bool T7App::OnInit()
 #endif
 ////@end T7App initialisation
 
-    wxSetlocale(LC_ALL, "");
     SetAppName(_APPNAME_T7_);
+    m_locale.Init(wxLANGUAGE_DEFAULT);
+    wxTranslations::Get()->AddStdCatalog();
+    m_locale.AddCatalog(_APPNAME_T7_);
+    
     SetExitOnFrameDelete(true);
     XT7Main * main = new XT7Main( NULL);
     SetTopWindow(main);
