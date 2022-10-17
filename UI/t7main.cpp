@@ -165,29 +165,31 @@ void T7Main::CreateControls()
 
     wxBoxSizer* itemBoxSizer13 = new wxBoxSizer(wxHORIZONTAL);
     szMediaTop->Add(itemBoxSizer13, 0, wxGROW|wxALL, 5);
-    btnMediaRootRefresh = new wxButton( panPedals, ID_BUTTON1, wxGetTranslation(wxString(wxT("Rafra")) + (wxChar) 0x00EE + wxT("chir")), wxDefaultPosition, wxDefaultSize, 0 );
+    btnMediaRootRefresh = new wxButton( panPedals, ID_BUTTON1, _("Refresh"), wxDefaultPosition, wxDefaultSize, 0 );
+    if (T7Main::ShowToolTips())
+        btnMediaRootRefresh->SetToolTip(_("Update file list."));
     itemBoxSizer13->Add(btnMediaRootRefresh, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     dpkMediaRoot = new wxDirPickerCtrl( panPedals, ID_DIRPICKERCTRL1, wxEmptyString, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxDIRP_DEFAULT_STYLE|wxDIRP_USE_TEXTCTRL|wxDIRP_DIR_MUST_EXIST|wxDIRP_CHANGE_DIR );
     if (T7Main::ShowToolTips())
-        dpkMediaRoot->SetToolTip(wxGetTranslation(wxString(wxT("Dossier racine des m")) + (wxChar) 0x00E9 + wxT("dias.")));
+        dpkMediaRoot->SetToolTip(_("Media source directory."));
     itemBoxSizer13->Add(dpkMediaRoot, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    panePedalIDs = new wxCollapsiblePane( panPedals, ID_COLLAPSIBLEPANE6, wxGetTranslation(wxString(wxT("Configuration du p")) + (wxChar) 0x00E9 + wxT("dalier")), wxDefaultPosition, wxDefaultSize, wxCP_DEFAULT_STYLE );
+    panePedalIDs = new wxCollapsiblePane( panPedals, ID_COLLAPSIBLEPANE6, _("Device configuration"), wxDefaultPosition, wxDefaultSize, wxCP_DEFAULT_STYLE );
     szMediaMain->Add(panePedalIDs, 0, wxGROW|wxALL, 5);
     szPedalMain = new wxBoxSizer(wxVERTICAL);
     panePedalIDs->GetPane()->SetSizer(szPedalMain);
 
-    panePedalHardware = new wxCollapsiblePane( panePedalIDs->GetPane(), ID_COLLAPSIBLEPANE7, wxGetTranslation(wxString(wxT("Mat")) + (wxChar) 0x00E9 + wxT("riel")), wxDefaultPosition, wxDefaultSize, wxCP_DEFAULT_STYLE );
+    panePedalHardware = new wxCollapsiblePane( panePedalIDs->GetPane(), ID_COLLAPSIBLEPANE7, _("Device"), wxDefaultPosition, wxDefaultSize, wxCP_DEFAULT_STYLE );
     if (T7Main::ShowToolTips())
-        panePedalHardware->SetToolTip(wxGetTranslation(wxString(wxT("Vous ne devez pas jouer avec ces valeurs une fois param")) + (wxChar) 0x00E9 + wxT("tr") + (wxChar) 0x00E9 + wxT("es.")));
+        panePedalHardware->SetToolTip(_("You should not play with these parameters once rightly set."));
     szPedalMain->Add(panePedalHardware, 0, wxGROW|wxALL, 5);
     szPedalHardware = new wxBoxSizer(wxVERTICAL);
     panePedalHardware->GetPane()->SetSizer(szPedalHardware);
 
     wxBoxSizer* itemBoxSizer20 = new wxBoxSizer(wxHORIZONTAL);
     szPedalHardware->Add(itemBoxSizer20, 0, wxGROW|wxALL, 5);
-    wxStaticText* itemStaticText21 = new wxStaticText( panePedalHardware->GetPane(), wxID_STATIC, wxGetTranslation(wxString(wxT("1. P")) + (wxChar) 0x00E9 + wxT("riph") + (wxChar) 0x00E9 + wxT("rique")), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText21 = new wxStaticText( panePedalHardware->GetPane(), wxID_STATIC, _("1. Select a device"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer20->Add(itemStaticText21, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxArrayString cmbHIDDevicesStrings;
@@ -196,19 +198,19 @@ void T7Main::CreateControls()
 
     wxBoxSizer* itemBoxSizer23 = new wxBoxSizer(wxHORIZONTAL);
     szPedalHardware->Add(itemBoxSizer23, 0, wxGROW|wxALL, 5);
-    wxStaticText* itemStaticText24 = new wxStaticText( panePedalHardware->GetPane(), wxID_STATIC, wxGetTranslation(wxString(wxT("2. Appuyez sur la p")) + (wxChar) 0x00E9 + wxT("dale")), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText24 = new wxStaticText( panePedalHardware->GetPane(), wxID_STATIC, _("2. Press pedal"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer23->Add(itemStaticText24, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxArrayString cmbPedalsStrings;
     cmbPedals = new wxComboBox( panePedalHardware->GetPane(), ID_XCOMBOBOX6, wxEmptyString, wxDefaultPosition, wxDefaultSize, cmbPedalsStrings, wxCB_READONLY );
     if (T7Main::ShowToolTips())
-        cmbPedals->SetToolTip(wxGetTranslation(wxString(wxT("Vous ne devriez pas jouer avec cette valeur une fois bien param")) + (wxChar) 0x00E9 + wxT("tr") + (wxChar) 0x00E9 + wxT("e.")));
+        cmbPedals->SetToolTip(_("You should not play with this once rightly configured."));
     itemBoxSizer23->Add(cmbPedals, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     lblPedalCode = new wxStaticText( panePedalHardware->GetPane(), wxID_STATIC, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer23->Add(lblPedalCode, 1, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
-    btnAbout = new wxButton( panePedalHardware->GetPane(), ID_BUTTON, _("A propos"), wxDefaultPosition, wxDefaultSize, 0 );
+    btnAbout = new wxButton( panePedalHardware->GetPane(), ID_BUTTON, _("About"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer23->Add(btnAbout, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxBoxSizer* itemBoxSizer28 = new wxBoxSizer(wxHORIZONTAL);
@@ -219,30 +221,30 @@ void T7Main::CreateControls()
     wxArrayString cmbPedalActionLeftStrings;
     cmbPedalActionLeft = new wxComboBox( panePedalIDs->GetPane(), ID_XCOMBOBOX9, wxEmptyString, wxDefaultPosition, wxDefaultSize, cmbPedalActionLeftStrings, wxCB_READONLY );
     if (T7Main::ShowToolTips())
-        cmbPedalActionLeft->SetToolTip(wxGetTranslation(wxString(wxT("P")) + (wxChar) 0x00E9 + wxT("dale de gauche")));
+        cmbPedalActionLeft->SetToolTip(_("Left pedal"));
     itemBoxSizer28->Add(cmbPedalActionLeft, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxArrayString cmbPedalActionMiddleStrings;
     cmbPedalActionMiddle = new wxComboBox( panePedalIDs->GetPane(), ID_XCOMBOBOX7, wxEmptyString, wxDefaultPosition, wxDefaultSize, cmbPedalActionMiddleStrings, wxCB_READONLY );
     if (T7Main::ShowToolTips())
-        cmbPedalActionMiddle->SetToolTip(wxGetTranslation(wxString(wxT("P")) + (wxChar) 0x00E9 + wxT("dale du milieu.")));
+        cmbPedalActionMiddle->SetToolTip(_("Middle pedal"));
     itemBoxSizer28->Add(cmbPedalActionMiddle, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxArrayString cmbPedalActionRightStrings;
     cmbPedalActionRight = new wxComboBox( panePedalIDs->GetPane(), ID_XCOMBOBOX8, wxEmptyString, wxDefaultPosition, wxDefaultSize, cmbPedalActionRightStrings, wxCB_READONLY );
     if (T7Main::ShowToolTips())
-        cmbPedalActionRight->SetToolTip(wxGetTranslation(wxString(wxT("P")) + (wxChar) 0x00E9 + wxT("dale de droite.")));
+        cmbPedalActionRight->SetToolTip(_("Right pedal"));
     itemBoxSizer28->Add(cmbPedalActionRight, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     wxBoxSizer* itemBoxSizer33 = new wxBoxSizer(wxHORIZONTAL);
     szPedalMain->Add(itemBoxSizer33, 0, wxGROW|wxALL, 5);
-    wxStaticText* itemStaticText34 = new wxStaticText( panePedalIDs->GetPane(), wxID_STATIC, wxGetTranslation(wxString(wxT("Revenir en arri")) + (wxChar) 0x00E8 + wxT("re ") + (wxChar) 0x00E0 + wxT(" la fin de la lecture")), wxDefaultPosition, wxDefaultSize, 0 );
+    wxStaticText* itemStaticText34 = new wxStaticText( panePedalIDs->GetPane(), wxID_STATIC, _("Auto-rewind on playback suspend"), wxDefaultPosition, wxDefaultSize, 0 );
     itemBoxSizer33->Add(itemStaticText34, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     txtMediaAutoRewind = new wxTextCtrl( panePedalIDs->GetPane(), ID_XTEXTCTRL7, _("1000"), wxDefaultPosition, wxDefaultSize, wxTE_PROCESS_ENTER|wxTE_RIGHT );
     txtMediaAutoRewind->SetMaxLength(6);
     if (T7Main::ShowToolTips())
-        txtMediaAutoRewind->SetToolTip(wxGetTranslation(wxString(wxT("En millisecondes. Appuyez sur ENTR")) + (wxChar) 0x00C9 + wxT("E pour enregistrer apr") + (wxChar) 0x00E8 + wxT("s modification.")));
+        txtMediaAutoRewind->SetToolTip(_("Milliseconds; press Enter to save."));
     itemBoxSizer33->Add(txtMediaAutoRewind, 0, wxALIGN_CENTER_VERTICAL|wxALL, 5);
 
     scrlMain->FitInside();

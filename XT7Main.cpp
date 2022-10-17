@@ -44,7 +44,7 @@ XT7Main::XT7Main( wxWindow* parent, wxWindowID id, const wxString& caption, cons
         Bind(wxEVT_IDLE, &XT7Main::OnIdle, this);
         m_keyHandler = new KeyboardSimulation(pedalEVH);
     } else {
-        MessageBox(_(L"Configuration du pédalier incomplète."), true);
+        MessageBox(_("Incomplete device configuration."), true);
     }
     UpdateTitle();
 }
@@ -105,25 +105,25 @@ void XT7Main::Init() {
     medMain->Show(false);
     // cmb = wxComboBox
     HIDTool::GetHIDDevices(cmbHIDDevices, hidPaths);
-    wxString device = config->Read(_T("/PEDALES/Dispositif"));
+    wxString device = config->Read(_T("/PEDALS/Device"));
     cmbHIDDevices->SetSelection(cmbHIDDevices->FindString(device, true));
-    cmbPedals->Append(_(L"de gauche"));
-    cmbPedals->Append(_(L"du milieu"));
-    cmbPedals->Append(_(L"de droite"));
-    cmbPedalActionLeft->Append(_(L"Retour rapide"));
-    cmbPedalActionLeft->Append(_(L"Avance rapide"));
-    cmbPedalActionLeft->Append(_(L"Lecture"));
-    cmbPedalActionMiddle->Append(_(L"Retour rapide"));
-    cmbPedalActionMiddle->Append(_(L"Avance rapide"));
-    cmbPedalActionMiddle->Append(_(L"Lecture"));
-    cmbPedalActionRight->Append(_(L"Retour rapide"));
-    cmbPedalActionRight->Append(_(L"Avance rapide"));
-    cmbPedalActionRight->Append(_(L"Lecture"));
+    cmbPedals->Append(_("Left"));
+    cmbPedals->Append(_("Middle"));
+    cmbPedals->Append(_("Right"));
+    cmbPedalActionLeft->Append(_("Rewind"));
+    cmbPedalActionLeft->Append(_("Fast forward"));
+    cmbPedalActionLeft->Append(_("Play"));
+    cmbPedalActionMiddle->Append(_("Rewind"));
+    cmbPedalActionMiddle->Append(_("Fast forward"));
+    cmbPedalActionMiddle->Append(_("Play"));
+    cmbPedalActionRight->Append(_("Rewind"));
+    cmbPedalActionRight->Append(_("Fast forward"));
+    cmbPedalActionRight->Append(_("Play"));
     // Automatic rewind on pause
     // txt = wxTextCtrl
     txtMediaAutoRewind->SetValidator(wxTextValidator(wxFILTER_DIGITS));
     long autoRw = 1500;
-    config->Read(_T("/PEDALES/DIVERS/RetourAuto"), &autoRw);
+    config->Read(_T("/PEDALS/MISC/AutoRewind"), &autoRw);
     txtMediaAutoRewind->SetValue(wxVariant(autoRw).GetString());
     /*
      * We provide default usual pedal actions :
@@ -132,22 +132,22 @@ void XT7Main::Init() {
      * Right pedal : play
      */
     long actionIndex = wxNOT_FOUND;
-    if (!config->Read(_T("/PEDALES/ACTIONS/Gauche"), &actionIndex)
-            && !config->Read(_T("/PEDALES/ACTIONS/Milieu"), &actionIndex)
-            && !config->Read(_T("/PEDALES/ACTIONS/Droit"), &actionIndex)) {
-        config->Write(_T("/PEDALES/ACTIONS/Gauche"), 0);
-        config->Write(_T("/PEDALES/ACTIONS/Milieu"), 1);
-        config->Write(_T("/PEDALES/ACTIONS/Droit"), 2);
+    if (!config->Read(_T("/PEDALS/ACTIONS/Left"), &actionIndex)
+            && !config->Read(_T("/PEDALS/ACTIONS/Middle"), &actionIndex)
+            && !config->Read(_T("/PEDALS/ACTIONS/Right"), &actionIndex)) {
+        config->Write(_T("/PEDALS/ACTIONS/Left"), 0);
+        config->Write(_T("/PEDALS/ACTIONS/Middle"), 1);
+        config->Write(_T("/PEDALS/ACTIONS/Right"), 2);
         config->Flush();
     }
     actionIndex = wxNOT_FOUND;
-    config->Read(_T("/PEDALES/ACTIONS/Gauche"), &actionIndex);
+    config->Read(_T("/PEDALS/ACTIONS/Left"), &actionIndex);
     cmbPedalActionLeft->SetSelection(actionIndex);
     actionIndex = wxNOT_FOUND;
-    config->Read(_T("/PEDALES/ACTIONS/Milieu"), &actionIndex);
+    config->Read(_T("/PEDALS/ACTIONS/Middle"), &actionIndex);
     cmbPedalActionMiddle->SetSelection(actionIndex);
     actionIndex = wxNOT_FOUND;
-    config->Read(_T("/PEDALES/ACTIONS/Droit"), &actionIndex);
+    config->Read(_T("/PEDALS/ACTIONS/Right"), &actionIndex);
     cmbPedalActionRight->SetSelection(actionIndex);
     // lbl = wxStaticText
     lblMediaCurrent->SetLabel(wxEmptyString);
@@ -157,7 +157,7 @@ void XT7Main::Init() {
     lvMediaList->Bind(wxEVT_LIST_ITEM_ACTIVATED, &XT7Main::LoadMedia, this);
     // dpk = wxDirPicker
     dpkMediaRoot->GetTextCtrl()->SetEditable(false);
-    dpkMediaRoot->SetPath(config->Read(_T("/Medias/Racine")));
+    dpkMediaRoot->SetPath(config->Read(_T("/Medias/Root")));
     dpkMediaRoot->Bind(wxEVT_DIRPICKER_CHANGED, &XT7Main::MediaRootChanged, this);
     // btn = wxButton
     btnMediaRootRefresh->Bind(wxEVT_COMMAND_BUTTON_CLICKED, &XT7Main::ListMedia, this);
@@ -171,26 +171,23 @@ void XT7Main::Init() {
     panePedalIDs->Bind(wxEVT_COLLAPSIBLEPANE_CHANGED, &XT7Main::CollapsiblePaneChanged, this);
     panePedalHardware->Bind(wxEVT_COLLAPSIBLEPANE_CHANGED, &XT7Main::CollapsiblePaneChanged, this);
     txtMediaAutoRewind->Bind(wxEVT_COMMAND_TEXT_ENTER, &XT7Main::SavePedalAutoRewind, this);
-    // For display on Android handhelds where PPI may be set high for readable display
-    wxDouble scaleFactor = 1.0;
-    const wxDouble ppi = wxGetDisplayPPI().GetY();
-    if (ppi > 96.0) scaleFactor = (ppi / 96.0);
-    SetSize((int) (600.0 * scaleFactor), (int) (450.0 * scaleFactor));
+    
+    SetSize(600, 450);
 }
 bool XT7Main::ListenToPedal() {
     // Create a pedal monitor and an event handler.
     wxString device;
-    if (!config->Read(_T("/PEDALES/Dispositif"), &device)) return false;
+    if (!config->Read(_T("/PEDALS/Device"), &device)) return false;
     if (!AreAllPedalsIdentified()) return false;
     wxString devicePath = wxEmptyString;
     if (cmbHIDDevices->GetSelection() != wxNOT_FOUND)
         devicePath = hidPaths.Item(cmbHIDDevices->GetSelection());
     long leftCode, middleCode, rightCode;
-    config->Read(_T("/PEDALES/ID/Gauche"), &leftCode);
-    config->Read(_T("/PEDALES/ID/Milieu"), &middleCode);
-    config->Read(_T("/PEDALES/ID/Droit"), &rightCode);
+    config->Read(_T("/PEDALS/ID/Left"), &leftCode);
+    config->Read(_T("/PEDALS/ID/Middle"), &middleCode);
+    config->Read(_T("/PEDALS/ID/Right"), &rightCode);
     long autoRewind = 1500;
-    config->Read(_T("/PEDALES/DIVERS/RetourAuto"), &autoRewind);
+    config->Read(_T("/PEDALS/MISC/AutoRewind"), &autoRewind);
     pedalEVH = new PedalEVH(this, (wxFileOffset) autoRewind);
     pedMonitor = new PedalMonitor_OnOff(devicePath, pedalEVH, leftCode, middleCode, rightCode);
     //pedMonitor = new PedalMonitor_Override(devicePath, pedalEVH, leftCode, middleCode, rightCode);
@@ -205,14 +202,13 @@ bool XT7Main::ListenToPedal() {
     return true;
 }
 void XT7Main::SavePedalDevice(wxCommandEvent& evt) {
-    if (config->Write(_T("/PEDALES/Dispositif"), cmbHIDDevices->GetValue())) {
-        MessageBox(_(L"Enregistré. Vous ne devriez pas jouer avec cette valeur une fois bien paramétrée."), true);
+    if (config->Write(_T("/PEDALS/Device"), cmbHIDDevices->GetValue())) {
+        MessageBox(_("Device saved. Proceed to pedal identification."), true);
         // Individual pedals must be identified again.
-        config->DeleteGroup(_T("/PEDALES/ID"));
+        config->DeleteGroup(_T("/PEDALS/ID"));
         config->Flush();
-        //MessageBox(_T("Vous devez compléter l'identification de toutes les pédales."), true);
     } else {
-        MessageBox(_(L"Echec de sauvegarde."), true);
+        MessageBox(_("Can't save selected device in configuration."), true);
     }
 }
 void XT7Main::SavePedalAction(wxCommandEvent& evt) {
@@ -230,19 +226,19 @@ void XT7Main::SavePedalAction(wxCommandEvent& evt) {
         inconsistent = (actionIndex == cmbPedalActionLeft->GetSelection() || actionIndex == cmbPedalActionMiddle->GetSelection());
     }
     if (inconsistent) {
-        MessageBox(_(L"Choix inconsistants."), true);
+        MessageBox(_("Choices are not consistent."), true);
         return;
     }
-    config->Write(_T("/PEDALES/ACTIONS/Gauche"), cmbPedalActionLeft->GetSelection());
-    config->Write(_T("/PEDALES/ACTIONS/Milieu"), cmbPedalActionMiddle->GetSelection());
-    config->Write(_T("/PEDALES/ACTIONS/Droit"), cmbPedalActionRight->GetSelection());
+    config->Write(_T("/PEDALS/ACTIONS/Left"), cmbPedalActionLeft->GetSelection());
+    config->Write(_T("/PEDALS/ACTIONS/Middle"), cmbPedalActionMiddle->GetSelection());
+    config->Write(_T("/PEDALS/ACTIONS/Right"), cmbPedalActionRight->GetSelection());
     config->Flush();
 }
 void XT7Main::SavePedalAutoRewind(wxCommandEvent& evt) {
-    config->Write(_T("/PEDALES/DIVERS/RetourAuto"), wxVariant(txtMediaAutoRewind->GetValue()).GetLong());
+    config->Write(_T("/PEDALS/MISC/AutoRewind"), wxVariant(txtMediaAutoRewind->GetValue()).GetLong());
     config->Flush();
     long newAutoRewind;
-    config->Read(_T("/PEDALES/DIVERS/RetourAuto"), &newAutoRewind);
+    config->Read(_T("/PEDALS/MISC/AutoRewind"), &newAutoRewind);
     if (pedalEVH) pedalEVH->UpdateAutoRewind((wxFileOffset) newAutoRewind);
 }
 bool XT7Main::ArePedalActionsConsistent() {
@@ -262,9 +258,9 @@ void XT7Main::StartPedalCodeIdentification(wxCommandEvent& evt) {
     if (!pedalEVH) pedalEVH = new PedalEVH(this);
     if (!pedCodeIdentifier) {
         wxString device = wxEmptyString;
-        config->Read(_T("/PEDALES/Dispositif"), &device);
+        config->Read(_T("/PEDALS/Device"), &device);
         if (device.IsEmpty()) {
-            MessageBox(_T("Périphérique non déclaré."), true);
+            MessageBox(_T("No declared device."), true);
             return;
         }
         wxString devicePath = wxEmptyString;
@@ -283,41 +279,41 @@ void XT7Main::UpdatePedalCode(const unsigned short code) {
      */
     static bool started = false;
     if (!started) {
-        config->DeleteGroup(_T("/PEDALES/ID"));
+        config->DeleteGroup(_T("/PEDALS/ID"));
         config->Flush();
         started = true;
-        MessageBox(_T("Vous devez compléter l'identification de toutes les pédales."), true);
+        MessageBox(_T("Please identify each pedal."), true);
     }
     switch (cmbPedals->GetSelection()) {
         case 0:
-            config->Write(_T("/PEDALES/ID/Gauche"), (long) code);
+            config->Write(_T("/PEDALS/ID/Left"), (long) code);
             break;
         case 1:
-            config->Write(_T("/PEDALES/ID/Milieu"), (long) code);
+            config->Write(_T("/PEDALS/ID/Middle"), (long) code);
             break;
         case 2:
-            config->Write(_T("/PEDALES/ID/Droit"), (long) code);
+            config->Write(_T("/PEDALS/ID/Right"), (long) code);
             break;
         default:
             return;
     }
     config->Flush();
-    lblPedalCode->SetLabel(_(L"Enregistré. Vous pouvez identifier une autre pédale."));
+    lblPedalCode->SetLabel(_("Saved. You may identify another pedal."));
     configError = !ArePedalsFullyConfigured();
     if (!configError) {
-        MessageBox(_T("Cette fenêtre va se fermer. Veuillez recommencer."));
+        MessageBox(_("This window will close. Please start again."));
         Close();
     }
 }
 bool XT7Main::AreAllPedalsIdentified() {
     long left, middle, right;
-    return (config->Read(_T("/PEDALES/ID/Gauche"), &left)
-        && config->Read(_T("/PEDALES/ID/Milieu"), &middle)
-        && config->Read(_T("/PEDALES/ID/Droit"), &right));
+    return (config->Read(_T("/PEDALS/ID/Left"), &left)
+        && config->Read(_T("/PEDALS/ID/Middle"), &middle)
+        && config->Read(_T("/PEDALS/ID/Right"), &right));
 }
 bool XT7Main::ArePedalsFullyConfigured() {
     wxString device = wxEmptyString;
-    return (config->Read(_T("/PEDALES/Dispositif"), &device) && AreAllPedalsIdentified());
+    return (config->Read(_T("/PEDALS/Device"), &device) && AreAllPedalsIdentified());
 }
 void XT7Main::SliderChanged(wxCommandEvent& evt) {
     // Manual media positioning
@@ -364,7 +360,7 @@ void XT7Main::LoadMedia(wxListEvent& evt) {
     it.SetColumn(2);
     it.SetMask(wxLIST_MASK_TEXT);
     if (lvMediaList->GetItem(it)) {
-        wxString mediaRoot = config->Read(_T("/Medias/Racine"));
+        wxString mediaRoot = config->Read(_T("/Medias/Root"));
         if (mediaRoot.IsEmpty()) return;
         wxFileName media(mediaRoot + wxFileName::GetPathSeparator() + it.GetText());
         if (media.Exists()) {
@@ -407,7 +403,7 @@ void XT7Main::OnIdle(wxIdleEvent& evt) {
     itFileName.SetMask(wxLIST_MASK_TEXT);
     
     if (lvMediaList->GetItem(itFileName)) {
-        wxString mediaRoot = config->Read(_T("/Medias/Racine"));
+        wxString mediaRoot = config->Read(_T("/Medias/Root"));
         if (mediaRoot.IsEmpty()) return;
         wxFileName media(mediaRoot + wxFileName::GetPathSeparator() + itFileName.GetText());
         if (media.GetFullPath() != loadedMediaPath)
@@ -433,20 +429,20 @@ void XT7Main::OnIdle(wxIdleEvent& evt) {
 }
 void XT7Main::MediaRootChanged(wxFileDirPickerEvent& evt) {
     // A directory where we look for media files.
-    config->Write(_T("/Medias/Racine"), dpkMediaRoot->GetPath());
+    config->Write(_T("/Medias/Root"), dpkMediaRoot->GetPath());
     config->Flush();
     loadedMediaPath = wxString();
 }
 void XT7Main::ListMedia(wxCommandEvent& evt) {
     // We don't recurse in sub directories.
-    wxString mediaRoot = config->Read(_T("/Medias/Racine"));
+    wxString mediaRoot = config->Read(_T("/Medias/Root"));
     if (mediaRoot.IsEmpty()) return;
     lvMediaList->ClearAll();
     wxArrayString files;
     wxDir::GetAllFiles(mediaRoot, &files, wxEmptyString, wxDIR_FILES);
-    lvMediaList->AppendColumn(_T("Date"));
-    lvMediaList->AppendColumn(_T("Durée"));
-    lvMediaList->AppendColumn(_T("Dictée"));
+    lvMediaList->AppendColumn(_("Date"));
+    lvMediaList->AppendColumn(_("Length"));
+    lvMediaList->AppendColumn(_("File"));
     
     for (int i = 0; i < files.GetCount(); i++) {
         wxListItem it;
@@ -472,9 +468,9 @@ void XT7Main::SetStreamError() {
     streamError = true;
     // We request application restart when stream is established again.
     // We don't try to detect if the problem is resolved. Restart is cheap.
-    MessageBox(_(L"Erreur de communication avec le pédalier. Après avoir réglé le problème,"
-            " veuillez redémarrer l'application."
-            "\n\n Au clavier : F5, F6, F7, ESC."), true);
+    MessageBox(_("Can't communication with the pedal device. After resolving the problem,"
+            " please restart the application."
+            "\n\n Keyboard control : F5, F6, F7, ESC."), true);
     medMain->Stop();
     UpdateMediaProgressPosition();
     if (mediaProgress && mediaProgress->GetThread()->IsRunning()) mediaProgress->GetThread()->Pause();
@@ -482,10 +478,10 @@ void XT7Main::SetStreamError() {
 }
 void XT7Main::ShowAbout(wxCommandEvent& evt) {
     wxString msg = _APPNAME_T7_ + _T(" - ") + _APPVERSION_T7_ + _T("\n\n");
-    msg += _(L"Auteur et copyright :") + _T("\n");
+    msg += _("Author and copyright :") + _T("\n");
     msg += wxString(_T("SET, M.D.")) + _T("\n");
     msg += wxString(_T("nmset@yandex.com")) + _T("\n\n");
-    msg += wxString(_(L"Sous license LGPL"));
+    msg += wxString(_("LGPL license"));
     MessageBox(msg);
 }
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -542,7 +538,7 @@ void PedalEVH::Left(PedalEvent::PedalStatus status) {
             Play(status);
             break;
         default :
-            m_owner->MessageBox(_(L"Action mal déclarée."), true);
+            m_owner->MessageBox(_("Action is not rightly declared."), true);
     }
     
 }
@@ -559,7 +555,7 @@ void PedalEVH::Middle(PedalEvent::PedalStatus status) {
             Play(status);
             break;
         default :
-            m_owner->MessageBox(_(L"Action mal déclarée."), true);
+            m_owner->MessageBox(_("Action is not rightly declared."), true);
     }
 }
 void PedalEVH::Right(PedalEvent::PedalStatus status) {
@@ -575,7 +571,7 @@ void PedalEVH::Right(PedalEvent::PedalStatus status) {
             Play(status);
             break;
         default :
-            m_owner->MessageBox(_(L"Action mal déclarée."), true);
+            m_owner->MessageBox(_("Action is not rightly declared."), true);
     }
 }
 void PedalEVH::Rewind(PedalEvent::PedalStatus status) {

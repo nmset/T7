@@ -102,7 +102,7 @@ bool T7App::OnInit()
 #endif
 ////@end T7App initialisation
 
-    wxSetlocale(LC_ALL, wxLocale::GetLanguageCanonicalName(wxLocale::GetSystemLanguage()) + _T(".") + wxLocale::GetSystemEncodingName());
+    wxSetlocale(LC_ALL, "");
     SetAppName(_APPNAME_T7_);
     SetExitOnFrameDelete(true);
     XT7Main * main = new XT7Main( NULL);
