@@ -1,8 +1,8 @@
 /* 
  * File:   XT7Main.h
- * Author: SET - nmset@yandex.com
+ * Author: Saleem Edah-Tally - nmset@yandex.com
  * Licence : LGPL  2.1
- * Copyright SET, M.D. - © 2014
+ * Copyright Saleem Edah-Tally, M.D. - © 2014
  *
  * Created on 1 mars 2014, 15:00
  */

@@ -1,8 +1,8 @@
 /* 
  * File:   PedalMonitor.h
- * Author: SET - nmset@yandex.com
+ * Author: Saleem Edah-Tally - nmset@yandex.com
  * Licence : LGPL  2.1
- * Copyright SET, M.D. - © 2014
+ * Copyright Saleem Edah-Tally, M.D. - © 2014
  *
  * Created on 18 février 2014, 20:52
  */

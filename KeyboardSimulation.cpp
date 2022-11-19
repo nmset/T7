@@ -1,8 +1,8 @@
 /* 
  * File:   KeyboardSimulation.cpp
- * Author: SET - nmset@yandex.com
+ * Author: Saleem Edah-Tally - nmset@yandex.com
  * Licence : LGPL  2.1
- * Copyright SET, M.D. - © 2022
+ * Copyright Saleem Edah-Tally, M.D. - © 2022
  * 
  * Created on October 8, 2022, 3:43 PM
  */

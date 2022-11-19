@@ -1,8 +1,8 @@
 /* 
  * File:   XT7Main.cpp
- * Author: SET - nmset@yandex.com
+ * Author: Saleem Edah-Tally - nmset@yandex.com
  * Licence : LGPL 2.1
- * Copyright SET, M.D. - © 2014
+ * Copyright Saleem Edah-Tally, M.D. - © 2014
  * 
  * Created on 1 mars 2014, 15:00
  */
@@ -479,7 +479,7 @@ void XT7Main::SetStreamError() {
 void XT7Main::ShowAbout(wxCommandEvent& evt) {
     wxString msg = _APPNAME_T7_ + _T(" - ") + _APPVERSION_T7_ + _T("\n\n");
     msg += _("Author and copyright :") + _T("\n");
-    msg += wxString(_T("SET, M.D.")) + _T("\n");
+    msg += wxString(_T("Saleem Edah-Tally, M.D.")) + _T("\n");
     msg += wxString(_T("nmset@yandex.com")) + _T("\n\n");
     msg += wxString(_("LGPL license"));
     MessageBox(msg);

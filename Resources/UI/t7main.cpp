@@ -1,11 +1,11 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        t7main.cpp
 // Purpose:     
-// Author:      SET
+// Author:      Saleem Edah-Tally
 // Modified by: 
 // Created:     sam. 01 mars 2014 14:23:16 CET
 // RCS-ID:      
-// Copyright:   Copyright SET (nmset@yandex.com) - © 2014.
+// Copyright:   Copyright Saleem Edah-Tally (nmset@yandex.com) - © 2014.
 // Licence:     LGPL 2.1
 /////////////////////////////////////////////////////////////////////////////
 
